@@ -15,12 +15,10 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
  class LoginPage extends StatefulWidget {
   LoginPage({
     Key? key,
-    required this.title,
     required this.analytics,
     required this.observer,
   }) : super(key: key);
 
-   final String title;
   final FirebaseAnalytics analytics;
   final FirebaseAnalyticsObserver observer;
 

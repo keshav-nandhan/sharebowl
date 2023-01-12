@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sharebowl/buyfood.dart';
 import 'package:sharebowl/sellfood.dart';
 
+import 'login.dart';
 import 'models/users.dart';
 
 class FirstPage extends StatefulWidget {
@@ -22,6 +23,10 @@ FirstPage({Key? key, required this.userLoggedIn,required this.tabIndex,required 
 }
 
 class _FirstPageState extends State<FirstPage> {
+    static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
+      
 var tabSectionTabs = [
   const BuyFoodTab(),
   const SellFoodTab()
@@ -35,9 +40,20 @@ var tabSectionTabs = [
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.red[400],
+          actions: [ IconButton(
+                 icon: Icon(Icons.logout),
+                onPressed: () async{
+                  await GoogleSignIn().signOut();
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return LoginPage(analytics: analytics,observer: observer,);                      
+                  }));
+                },
+              ),],
           centerTitle: true,
           bottom:TabBar(isScrollable: true, tabs: tabSectionTabs,labelPadding:EdgeInsets.fromLTRB(50, 20, 50, 20) ,),
-          title: Text("Share Bowl"),
+          //title: Text("Share Bowl"),
         ),
         body: TabBarView(
           children:<Widget>[
