@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sharebowl/providers/api.dart';
 import 'models/users.dart';
@@ -21,7 +20,7 @@ class _SellFoodState extends State<SellFood>{
    Uint8List? image;
 
     late CameraController _controller;
-   FirebaseStorage _storage = FirebaseStorage.instance;
+   final FirebaseStorage _storage = FirebaseStorage.instance;
 
   List<String> selected = [];
 
@@ -31,7 +30,7 @@ class _SellFoodState extends State<SellFood>{
 
     TextEditingController quantityController = TextEditingController();
     List<String> ingredients=[];
-    Map<String,dynamic> ingredientsList=Map();
+    Map<String,dynamic> ingredientsList={};
     String? _category="";
        
  setSelectedRadioTile(String? val) {
@@ -116,7 +115,7 @@ class _SellFoodState extends State<SellFood>{
   children: [
   TextFormField(
  controller: foodnameController,
- decoration: InputDecoration(
+ decoration: const InputDecoration(
  border: InputBorder.none,
  contentPadding: EdgeInsets.all(10.0),
  filled: true,
@@ -128,12 +127,13 @@ class _SellFoodState extends State<SellFood>{
      if (value!.isEmpty) {
      return 'Please Enter Dish Name';
      }
+     return null;
   
    },
  ), 
    TextFormField(
  controller: quantityController,
- decoration: InputDecoration(
+ decoration: const InputDecoration(
  border: InputBorder.none,
  contentPadding: EdgeInsets.all(10.0),
  filled: true,
@@ -145,6 +145,7 @@ class _SellFoodState extends State<SellFood>{
      if (value!.isEmpty) {
      return 'Please Enter Quantity';
      }
+     return null;
     }
    
    ),
@@ -156,7 +157,7 @@ class _SellFoodState extends State<SellFood>{
      toggleable: true,
      value: "Male",
      groupValue: _category,
-     title: Text("Veg"),
+     title: const Text("Veg"),
      onChanged: (dynamic val) {
       setSelectedRadioTile(val);
      },
@@ -171,7 +172,7 @@ class _SellFoodState extends State<SellFood>{
      toggleable: true,
      value: "Female",
      groupValue: _category,
-     title: Text("Non-Veg"),
+     title: const Text("Non-Veg"),
      onChanged: (dynamic val) {
       setSelectedRadioTile(val);
      },
@@ -183,7 +184,7 @@ FutureBuilder(
       future: futureloaderdelay(),//it will return the future type result
             builder: (context, snapshot) {
             return Container(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
         height: 90,
         width: 300,
         child: DropDownMultiSelect(
@@ -203,7 +204,7 @@ Container(
   height: 60,
   width: 350,
   alignment: Alignment.centerLeft,
-  padding: EdgeInsets.only(left: 12),
+  padding: const EdgeInsets.only(left: 12),
   decoration: BoxDecoration(
     color: Colors.black12,
     borderRadius: BorderRadius.circular(25),
@@ -213,7 +214,7 @@ Container(
   ),
   child: TextFormField(
 controller: desccontroller,
-decoration: InputDecoration(
+decoration: const InputDecoration(
   border: InputBorder.none,
  labelText: "what's on your mind?",),
   
@@ -224,9 +225,9 @@ image == null? RawMaterialButton(
               hoverColor: Colors.amberAccent,
             fillColor: Colors.black12,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-            constraints: BoxConstraints.tightFor(height: 50.0,width: 150.0),
+            constraints: const BoxConstraints.tightFor(height: 50.0,width: 150.0),
             elevation:4.0,
-            child: Text("Add Photo"),
+            child: const Text("Add Photo"),
              onPressed: ()  => _selectImage(context),
           ):
            Stack(
@@ -246,15 +247,15 @@ image == null? RawMaterialButton(
                             ),
                           ),
                         ),
-                        ElevatedButton(onPressed: clearImage, child: Text("Cancel"))
+                        ElevatedButton(onPressed: clearImage, child: const Text("Cancel"))
              ],
            ),
 RawMaterialButton(
             fillColor: Colors.red[200],
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-            constraints: BoxConstraints.tightFor(height: 50.0,width: 150.0),
+            constraints: const BoxConstraints.tightFor(height: 50.0,width: 150.0),
             elevation:4.0,
-            child: Text("Click to Post"),
+            child: const Text("Click to Post"),
              onPressed: () async {
       try {
         String docId=FirebaseFirestore.instance.collection("Recipie_Master").doc().id;
@@ -290,7 +291,7 @@ RawMaterialButton(
    /// Utility method to wrap a gesture detector and wire up the required handlers.
  
   futureloaderdelay() {
-            return Future.delayed(Duration(milliseconds: 1000),);
+            return Future.delayed(const Duration(milliseconds: 1000),);
         }
         showSnackBar(BuildContext context, String text) {
   return ScaffoldMessenger.of(context).showSnackBar(

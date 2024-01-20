@@ -4,7 +4,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sharebowl/models/recipiemaster.dart';
-import 'package:sharebowl/models/users.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +26,7 @@ class FireStoreMethods {
   String uploadPost(String uid,String userId, String category,String quantity,String name, String cityLocation, List<String> selected, String description, String imagePosted,String? username, String? photoURL, bool isdelivered, bool isAvailable) {
 String res = "Some error occurred";
     try {
-      RecipieDetails recipieDetails=new RecipieDetails(
+      RecipieDetails recipieDetails=RecipieDetails(
       uid: uid,
       category: category,
       cityLocation: cityLocation,
@@ -187,11 +186,10 @@ String res = "Some error occurred";
 
   
    List<RecipieDetails> recipiesFeed(){
-    List<RecipieDetails> data=[];FirebaseAuth _auth=FirebaseAuth.instance;
-     _firestore.collection('Recipie_Master').where('isAvailable',isEqualTo: true).where('postedby',isNotEqualTo: _auth.currentUser?.uid).snapshots().listen((event) => {
-       event.docs.forEach((element) { 
+    List<RecipieDetails> data=[];FirebaseAuth auth=FirebaseAuth.instance;
+     _firestore.collection('Recipie_Master').where('isAvailable',isEqualTo: true).where('postedby',isNotEqualTo: auth.currentUser?.uid).snapshots().listen((event) => event.docs.forEach((element) { 
         if(element.exists){
-        data.add(new RecipieDetails(
+        data.add(RecipieDetails(
           uid: element.data()["uid"],
       category: element.data()["category"],
       description:element.data()["description"],
@@ -208,8 +206,7 @@ String res = "Some error occurred";
           ));
         }
        }) 
-      }
-    );
+      );
     return data;
    }
 
@@ -245,10 +242,10 @@ class StorageMethods {
   
   // for picking up image from gallery
 captureImage(ImageSource source) async {
-  final ImagePicker _imagePicker = ImagePicker();
-  XFile? _file = await _imagePicker.pickImage(source: source);
-  if (_file != null) {
-    return await _file.readAsBytes();
+  final ImagePicker imagePicker = ImagePicker();
+  XFile? file = await imagePicker.pickImage(source: source);
+  if (file != null) {
+    return await file.readAsBytes();
   }
   print('No Image Selected');
 }

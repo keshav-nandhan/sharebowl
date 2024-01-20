@@ -13,7 +13,7 @@ import 'models/users.dart';
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
  class LoginPage extends StatefulWidget {
-  LoginPage({
+  const LoginPage({
     Key? key,
     required this.analytics,
     required this.observer,
@@ -127,9 +127,9 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
           ),
         ),
         
-        Row(
+        const Row(
       mainAxisAlignment: MainAxisAlignment.center,
-          children: const[
+          children: [
             Text("Sign In With Google")
           ],
         )

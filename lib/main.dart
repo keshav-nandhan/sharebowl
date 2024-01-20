@@ -2,25 +2,21 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'login.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 Future<void> main() async {
-
   await runZonedGuarded(() async {
-  WidgetsFlutterBinding.ensureInitialized();
- 
-  //final initfuture =MobileAds.instance.initialize();
-  await Firebase.initializeApp();
-  
-  FlutterError.onError = (details){
-    FirebaseCrashlytics.instance.recordFlutterError(details);
-  };
-  runApp(MyApp());
-  }
-  ,(error, stackTrace) {
+    WidgetsFlutterBinding.ensureInitialized();
+    //final initfuture =MobileAds.instance.initialize();
+    await Firebase.initializeApp();
+
+    FlutterError.onError = (details) {
+      FirebaseCrashlytics.instance.recordFlutterError(details);
+    };
+    runApp(const ProviderScope(child: MyApp()));
+  }, (error, stackTrace) {
     FirebaseCrashlytics.instance.recordError(error, stackTrace);
   });
 }
@@ -49,10 +45,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       //home: const MyHomePage(title: 'Flutter Demo Home Page'),
-       home: LoginPage(
-      analytics: analytics,
-      observer: observer
-      ),
+      home: LoginPage(analytics: analytics, observer: observer),
     );
   }
 }
@@ -128,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
