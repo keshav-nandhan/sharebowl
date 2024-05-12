@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:extra_alignments/extra_alignments.dart';
@@ -21,10 +20,9 @@ class BuyFood extends StatefulWidget {
 
 class _BuyFoodState extends State<BuyFood>
     with WidgetsBindingObserver, TickerProviderStateMixin {
-  Stream<QuerySnapshot> _recipiesFeed;
+  late List<RecipieDetails> _recipiesFeed;
 
   late AnimationController? _animationcontroller;
-  final _formKey = GlobalKey<FormState>();
   TextEditingController foodnameController = TextEditingController();
 
   @override
@@ -50,34 +48,11 @@ class _BuyFoodState extends State<BuyFood>
     // return Container(child: Text("No Dishes Found",));
     return Scaffold(
       body: Container(
-          child: StreamBuilder(
-              stream: _recipiesFeed,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  _recipiesFeed.listen((event) => event.docs.forEach((element) {
-                        if (element.exists) {
-                          print(element.data());
-                          data.add(RecipieDetails(
-                              uid: element.data()!["uid"],
-                              category: element.data()!["category"],
-                              description: element.data()!["description"],
-                              cityLocation: element.data()!["cityLocation"],
-                              dateUpdated: element.data()!["dateUpdated"],
-                              imageAddress: element.data()!["imageAddress"],
-                              isAvailable: element.data()!["isAvailable"],
-                              name: element.data()!['name'],
-                              pickedUpBy: element.data()!['pickedUpBy'],
-                              postedby: element.data()!["postedby"],
-                              quantity: element.data()!['quantity'],
-                              requestedby: element.data()!['requestedby'],
-                              comments: element.data()!['comments']));
-                        }
-                      }));
+          child: ListView.builder(
+            itemCount: _recipiesFeed.length,
+            itemBuilder: (context, index) {
                   return RecipiesFeed(data, widget.currentUser);
-                } else {
-                  return CircularProgressIndicator();
-                }
-              })),
+            })),
     );
   }
 }

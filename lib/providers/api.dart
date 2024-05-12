@@ -196,14 +196,34 @@ class FireStoreMethods {
     }
   }
 
-  Stream<QuerySnapshot> recipiesFeed() {
+  List<RecipieDetails> recipiesFeed() {
     List<RecipieDetails> data = [];
     FirebaseAuth auth = FirebaseAuth.instance;
-    return _firestore
+    _firestore
         .collection('Recipie_Master')
         .where('isAvailable', isEqualTo: true)
         .where('postedby', isNotEqualTo: auth.currentUser?.uid)
-        .snapshots();
+        .snapshots().listen((event)
+        {
+          event.docs.forEach((element) {
+                        if (element.exists) {
+                          data.add(RecipieDetails(
+                              uid: element.data()["uid"],
+                              category: element.data()["category"],
+                              description: element.data()["description"],
+                              cityLocation: element.data()["cityLocation"],
+                              dateUpdated: element.data()["dateUpdated"],
+                              imageAddress: element.data()["imageAddress"],
+                              isAvailable: element.data()["isAvailable"],
+                              name: element.data()['name'],
+                              pickedUpBy: element.data()['pickedUpBy'],
+                              postedby: element.data()["postedby"],
+                              quantity: element.data()['quantity'],
+                              requestedby: element.data()['requestedby'],
+                              comments: element.data()['comments']));
+                        }});
+                        });
+                  return data;
   }
 }
 
