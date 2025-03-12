@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class VegNonVegToggle extends StatefulWidget {
+  const VegNonVegToggle({super.key});
+
   @override
   _VegNonVegToggleState createState() => _VegNonVegToggleState();
 }
@@ -18,8 +18,8 @@ class _VegNonVegToggleState extends State<VegNonVegToggle> {
         children: [
           Expanded(
             child: RadioListTile<int>(
-              contentPadding: EdgeInsets.all(0),
-              title: Text('Veg'),
+              contentPadding: const EdgeInsets.all(0),
+              title: const Text('Veg'),
               value: 1,
               groupValue: _selection,
               onChanged: (value) => setState(() => _selection = value!),
@@ -28,8 +28,8 @@ class _VegNonVegToggleState extends State<VegNonVegToggle> {
           ),
           Expanded(
             child: RadioListTile<int>(
-              contentPadding: EdgeInsets.all(0),
-              title: Text('Non-Veg'),
+              contentPadding: const EdgeInsets.all(0),
+              title: const Text('Non-Veg'),
               value: 2,
               groupValue: _selection,
               onChanged: (value) => setState(() => _selection = value!),

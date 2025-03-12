@@ -11,7 +11,7 @@ Future<void> main() async {
     WidgetsFlutterBinding.ensureInitialized();
     //final initfuture =MobileAds.instance.initialize();
     await Firebase.initializeApp(
-        options: FirebaseOptions(
+        options: const FirebaseOptions(
       apiKey: 'AIzaSyB23mx2Ksh-oNDSHcMC-PzXEJ7mSbdQEyg',
       appId: '1:917036182592:android:f64356c0ed7dda582243a5',
       messagingSenderId: 'sharebowl-91b81.appspot.com',
@@ -29,7 +29,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);

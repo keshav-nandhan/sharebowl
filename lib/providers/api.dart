@@ -196,34 +196,17 @@ class FireStoreMethods {
     }
   }
 
-  List<RecipieDetails> recipiesFeed() {
-    List<RecipieDetails> data = [];
+  Future<List<RecipieDetails>> recipiesFeed() async{
     FirebaseAuth auth = FirebaseAuth.instance;
-    _firestore
+   var collection= await _firestore
         .collection('Recipie_Master')
         .where('isAvailable', isEqualTo: true)
-        .where('postedby', isNotEqualTo: auth.currentUser?.uid)
-        .snapshots().listen((event)
-        {
-          event.docs.forEach((element) {
-                        if (element.exists) {
-                          data.add(RecipieDetails(
-                              uid: element.data()["uid"],
-                              category: element.data()["category"],
-                              description: element.data()["description"],
-                              cityLocation: element.data()["cityLocation"],
-                              dateUpdated: element.data()["dateUpdated"],
-                              imageAddress: element.data()["imageAddress"],
-                              isAvailable: element.data()["isAvailable"],
-                              name: element.data()['name'],
-                              pickedUpBy: element.data()['pickedUpBy'],
-                              postedby: element.data()["postedby"],
-                              quantity: element.data()['quantity'],
-                              requestedby: element.data()['requestedby'],
-                              comments: element.data()['comments']));
-                        }});
-                        });
-                  return data;
+        .where('postedby', isNotEqualTo: auth.currentUser?.uid).get();
+         List<RecipieDetails> data = collection.docs.map((doc) {
+      return RecipieDetails.fromSnap(doc);
+    }).toList();
+
+    return data;
   }
 }
 

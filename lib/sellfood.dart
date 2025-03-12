@@ -8,17 +8,16 @@ import 'models/users.dart';
 import 'package:camera/camera.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-class SellFood extends StatefulWidget {
+class OfferFood extends StatefulWidget {
   final Users currentUser;
   final CameraDescription camera;
-  const SellFood({Key? key, required this.currentUser, required this.camera})
-      : super(key: key);
+  const OfferFood({super.key, required this.currentUser, required this.camera});
 
   @override
-  State<SellFood> createState() => _SellFoodState();
+  State<OfferFood> createState() => _OfferFoodState();
 }
 
-class _SellFoodState extends State<SellFood> {
+class _OfferFoodState extends State<OfferFood> {
   Uint8List? image;
 
   late CameraController _controller;
@@ -114,156 +113,158 @@ class _SellFoodState extends State<SellFood> {
       body: Container(
         child: (Form(
           key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextFormField(
-                controller: foodnameController,
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.all(10.0),
-                  filled: true,
-                  fillColor: Colors.black12,
-                  labelText: 'Enter Dish Name',
-                ),
-                // The validator receives the text that the user has entered.
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please Enter Dish Name';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                  controller: quantityController,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextFormField(
+                  controller: foodnameController,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.all(10.0),
                     filled: true,
                     fillColor: Colors.black12,
-                    labelText: '500g/1ltr/serves 3',
+                    labelText: 'Enter Recipie Name',
                   ),
                   // The validator receives the text that the user has entered.
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'Please Enter Quantity';
+                      return 'Please Enter Recipie Name';
                     }
                     return null;
-                  }),
-              Row(children: [VegNonVegToggle()]),
-              FutureBuilder(
-                  future:
-                      futureloaderdelay(), //it will return the future type result
-                  builder: (context, snapshot) {
-                    return Container(
-                      padding: const EdgeInsets.all(5),
-                      height: 90,
-                      width: 300,
-                    );
-                  }),
-              Container(
-                height: 60,
-                width: 350,
-                alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.only(left: 12),
-                decoration: BoxDecoration(
-                  color: Colors.black12,
-                  borderRadius: BorderRadius.circular(25),
-                  border: Border.all(
-                    width: .5,
-                  ),
+                  },
                 ),
-                child: TextFormField(
-                  controller: desccontroller,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    labelText: "what's on your mind?",
-                  ),
-                ),
-              ),
-              image == null
-                  ? RawMaterialButton(
-                      hoverColor: Colors.amberAccent,
+                TextFormField(
+                    controller: quantityController,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.all(10.0),
+                      filled: true,
                       fillColor: Colors.black12,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25)),
-                      constraints: const BoxConstraints.tightFor(
-                          height: 50.0, width: 150.0),
-                      elevation: 4.0,
-                      child: const Text("Add Photo"),
-                      onPressed: () => _selectImage(context),
-                    )
-                  : Stack(
-                      children: [
-                        SizedBox(
-                          height: 150.0,
-                          width: 150.0,
-                          child: AspectRatio(
-                            aspectRatio: 487 / 451,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                fit: BoxFit.fill,
-                                alignment: FractionalOffset.topCenter,
-                                image: MemoryImage(image!),
-                              )),
+                      labelText: 'Quantity 500g/1ltr/serves 3',
+                    ),
+                    // The validator receives the text that the user has entered.
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please Enter Quantity';
+                      }
+                      return null;
+                    }),
+                const Row(children: [VegNonVegToggle()]),
+                FutureBuilder(
+                    future:
+                        futureloaderdelay(), //it will return the future type result
+                    builder: (context, snapshot) {
+                      return Container(
+                        padding: const EdgeInsets.all(5),
+                        height: 90,
+                        width: 300,
+                      );
+                    }),
+                Container(
+                  height: 60,
+                  width: 350,
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.only(left: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.black12,
+                    borderRadius: BorderRadius.circular(25),
+                    border: Border.all(
+                      width: .5,
+                    ),
+                  ),
+                  child: TextFormField(
+                    controller: desccontroller,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      labelText: "what's on your mind?",
+                    ),
+                  ),
+                ),
+                image == null
+                    ? RawMaterialButton(
+                        hoverColor: Colors.amberAccent,
+                        fillColor: Colors.black12,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25)),
+                        constraints: const BoxConstraints.tightFor(
+                            height: 50.0, width: 150.0),
+                        elevation: 4.0,
+                        child: const Text("Add Photo"),
+                        onPressed: () => _selectImage(context),
+                      )
+                    : Stack(
+                        children: [
+                          SizedBox(
+                            height: 150.0,
+                            width: 150.0,
+                            child: AspectRatio(
+                              aspectRatio: 487 / 451,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  alignment: FractionalOffset.topCenter,
+                                  image: MemoryImage(image!),
+                                )),
+                              ),
                             ),
                           ),
-                        ),
-                        ElevatedButton(
-                            onPressed: clearImage, child: const Text("Cancel"))
-                      ],
-                    ),
-              RawMaterialButton(
-                fillColor: Colors.red[200],
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25)),
-                constraints:
-                    const BoxConstraints.tightFor(height: 50.0, width: 150.0),
-                elevation: 4.0,
-                child: const Text("Click to Post"),
-                onPressed: () async {
-                  try {
-                    String docId = FirebaseFirestore.instance
-                        .collection("Recipie_Master")
-                        .doc()
-                        .id;
-                    String imagePosted = "";
-                    if (image != null) {
-                      imagePosted = await StorageMethods().uploadImageToStorage(
-                          'Recipies', docId, image!, true);
-                    }
+                          ElevatedButton(
+                              onPressed: clearImage, child: const Text("Cancel"))
+                        ],
+                      ),
+                RawMaterialButton(
+                  fillColor: Colors.red[200],
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                  constraints:
+                      const BoxConstraints.tightFor(height: 50.0, width: 150.0),
+                  elevation: 4.0,
+                  child: const Text("Click to Post"),
+                  onPressed: () async {
+                    try {
+                      String docId = FirebaseFirestore.instance
+                          .collection("Recipie_Master")
+                          .doc()
+                          .id;
+                      String imagePosted = "";
+                      if (image != null) {
+                        imagePosted = await StorageMethods().uploadImageToStorage(
+                            'Recipies', docId, image!, true);
+                      }
 
-                    String response = FireStoreMethods().uploadPost(
-                        docId,
-                        widget.currentUser.uid,
-                        "veg",
-                        quantityController.text,
-                        foodnameController.text,
-                        '',
-                        selected,
-                        desccontroller.text,
-                        imagePosted,
-                        widget.currentUser.displayName,
-                        widget.currentUser.photoURL,
-                        false,
-                        true);
-                    if (response == 'success') {
-                      showSnackBar(context, 'Posted!');
-                      setState(() {});
-                    } else {
-                      showSnackBar(context, 'Some Error Occured!');
+                      String response = FireStoreMethods().uploadPost(
+                          docId,
+                          widget.currentUser.uid,
+                          "veg",
+                          quantityController.text,
+                          foodnameController.text,
+                          '',
+                          selected,
+                          desccontroller.text,
+                          imagePosted,
+                          widget.currentUser.displayName,
+                          widget.currentUser.photoURL,
+                          false,
+                          true);
+                      if (response == 'success') {
+                        showSnackBar(context, 'Posted!');
+                        setState(() {});
+                      } else {
+                        showSnackBar(context, 'Some Error Occured!');
+                      }
                     }
-                  }
-                  //_storage.ref('recipies/$widget.currentUser.uid').putData(await image.readAsBytes());
-                  //FirebaseFirestore.instance.collection("Recipies").doc("image1").set({"data":image},SetOptions(merge: true));
-                  catch (e) {
-                    // If an error occurs, log the error to the console.
-                    print(e);
-                  }
-                },
-              ),
-            ],
+                    //_storage.ref('recipies/$widget.currentUser.uid').putData(await image.readAsBytes());
+                    //FirebaseFirestore.instance.collection("Recipies").doc("image1").set({"data":image},SetOptions(merge: true));
+                    catch (e) {
+                      // If an error occurs, log the error to the console.
+                      print(e);
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         )),
       ),

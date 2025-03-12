@@ -19,7 +19,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.2.6 <4.0.0"
+  sdk: ">=3.4.0 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -33,29 +33,30 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.6
-  firebase_core: ^2.28.0
-  firebase_crashlytics: ^3.5.0
-  firebase_analytics: ^10.10.0
-  firebase_analytics_web: ^0.5.7
-  firebase_auth: ^ 4.19.0
+  cupertino_icons: ^1.0.8
+  firebase_core: ^3.10.0
+  firebase_crashlytics: ^4.3.0
+  firebase_analytics: ^11.4.0
+  firebase_analytics_web: ^0.5.10+6
+  firebase_auth: ^5.4.0
   firebase_auth_web: ^5.11.0
-  google_sign_in: ^6.2.1
-  geolocator: ^11.0.0
-  cloud_firestore: ^4.16.0
-  cloud_firestore_web: ^3.11.0
+  google_sign_in: ^6.2.2
+  geolocator: ^13.0.2
+  cloud_firestore: ^5.6.1
+  cloud_firestore_web: ^4.4.1
   permission_handler: ^11.3.1
-  intl: ^0.19.0
+  intl: ^0.20.1
   google_fonts: ^6.2.1
-  camera: ^0.10.5+9
   provider: ^6.1.2
-  url_launcher: ^6.2.6
-  flutter_riverpod: ^2.5.1
-  image_picker: ^1.0.7
+  url_launcher: ^6.3.1
+  flutter_riverpod: ^2.6.1
+  image_picker: ^1.1.2
+  camera_android_camerax: 0.6.10+1
   flutter_rating_bar: ^4.0.1
-  firebase_storage: ^11.7.0
+  firebase_storage: ^12.4.0
   extra_alignments: ^1.0.0+1
   navigation_builder: ^0.0.4
+  camera: ^0.11.0+2
 
 dev_dependencies:
   flutter_test:
@@ -66,7 +67,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

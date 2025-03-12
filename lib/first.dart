@@ -15,11 +15,10 @@ class FirstPage extends StatefulWidget {
   final int tabIndex;
   final CameraDescription camera;
   const FirstPage(
-      {Key? key,
+      {super.key,
       required this.userLoggedIn,
       required this.tabIndex,
-      required this.camera})
-      : super(key: key);
+      required this.camera});
 
   @override
   State<FirstPage> createState() => _FirstPageState();
@@ -74,7 +73,7 @@ class _FirstPageState extends State<FirstPage> {
         ),
         body: TabBarView(children: <Widget>[
           BuyFood(currentUser: widget.userLoggedIn),
-          SellFood(currentUser: widget.userLoggedIn, camera: widget.camera)
+          OfferFood(currentUser: widget.userLoggedIn, camera: widget.camera)
         ]),
       ),
     );
@@ -82,7 +81,7 @@ class _FirstPageState extends State<FirstPage> {
 }
 
 class BuyFoodTab extends StatefulWidget {
-  const BuyFoodTab({Key? key}) : super(key: key);
+  const BuyFoodTab({super.key});
 
   @override
   State<BuyFoodTab> createState() => _BuyFoodTabState();
@@ -99,7 +98,7 @@ class _BuyFoodTabState extends State<BuyFoodTab> {
 }
 
 class SellFoodTab extends StatefulWidget {
-  const SellFoodTab({Key? key}) : super(key: key);
+  const SellFoodTab({super.key});
 
   @override
   State<SellFoodTab> createState() => _SellFoodTabState();
